@@ -3,8 +3,9 @@ import { ref } from 'vue';
 import { useAuthStore } from '../stores/auth';
 
 const authStore = useAuthStore();
-const form = ref ({
+const form = ref({
     name: '',
+    dataOfBirth: '',
     email: '',
     password: '',
     passord_confirmation: ''
@@ -22,6 +23,9 @@ const form = ref ({
                 {{ authStore.errors.name[0] }}
             </span>
         </div>
+
+        <input type="text" v-model="form.dataOfBirth" placeholder="dataOfBirth">
+
         <input type="email" v-model="form.email" placeholder="Email">
         <div v-if ="authStore.errors.email">
             <span>
