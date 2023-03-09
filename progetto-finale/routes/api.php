@@ -47,7 +47,7 @@ Route::get('/v1/apartments', [ApartmentController::class, 'index'])->name('apart
 Route::get('/v1/apartments/{apartment}', [ApartmentController::class, 'show'])->name('apartments.show');
 // Route::delete('/v1/apartments/{apartment}', [ApartmentController::class, 'destroy'])->name('apartments.destroy');
 // Route::get('/v1/apartments/create', [ApartmentController::class, 'create'])->name('apartments.create');
-// Route::post('/v1/apartments/store', [ApartmentController::class, 'store'])->name('apartments.store');
+Route::post('/v1/apartments/store', [ApartmentController::class, 'store'])->name('apartments.store');
 
 
 ///////////IMAGE CONTROLLER////////////////

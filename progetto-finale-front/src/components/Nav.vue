@@ -21,6 +21,9 @@ console.log(authStore.user);
                         <router-link :to="{name : 'Home'}">Home</router-link>
                     </li>
                     <li>
+                        <router-link :to="{ name: 'Create' }">Create</router-link>
+                    </li>
+                    <li>
                         <router-link :to="{name : 'AdvancedSearch'}">Advanced Search</router-link>
                     </li>
 

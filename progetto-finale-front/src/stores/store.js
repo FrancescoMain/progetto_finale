@@ -4,7 +4,7 @@ export const store = reactive({
 
     AllApartmentsAPI: "http://127.0.0.1:8000/api/v1/apartments",
     RegisterAPI: "http://127.0.0.1:8000/api/register",
-    NewApartmentAPI: "http://127.0.0.1:8000/api/v1/apartments/store",
+    NewApartmentAPI: "http://localhost:8000/api/v1/apartments/store",
     ApartmentList: [],
     Apartment: [],
     NewApartment: {
@@ -20,9 +20,10 @@ export const store = reactive({
         visible: true,
         price: '',
         description: '',
-        services_id: ['1'],
+        services_id: [1],
         user_id: 1,
-    }
+    },
+    
 
 
 }); 

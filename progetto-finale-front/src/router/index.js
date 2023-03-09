@@ -53,6 +53,7 @@ const routes = [
             },
         },
     { path: '/apartments/:id', name: 'SingleApartment', component: () => import("../components/SingleApartment.vue") },
+    { path: '/create', name: 'Create', component: () => import("../components/Create.vue") },
 
         
 
