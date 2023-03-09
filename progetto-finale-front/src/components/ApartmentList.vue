@@ -1,38 +1,53 @@
 <script>
 import axios from 'axios';
+import { store } from '../stores/store';
+import Apartment from './Apartment.vue'
 
 export default {
+    name: "ApartmentList",
+    components: {
+        Apartment
+    },
     data() {
         return {
-            apartments: {}
-        }
-    },
-    methods: {
-        apiApartments() {
-            axios.get('http://localhost:8000/api' + '/v1/apartments')
-                .then(res => {
-                    this.apartments = res.data.response.data;
-                    console.log(this.apartments);
-                })
+            store
         }
     },
     mounted() {
-        this.apiApartments();
-    },
+        axios.get(store.AllApartmentsAPI)
+            .then(res => {
+                store.ApartmentList = res.data.response.data;
+                console.log(store.ApartmentList)
+            });
+    }
 }
 </script>
 
 <template>
-    <div>
-        <ul>
-            <li v-for="apartment in apartments">
-                <a href="#">
-                    {{ apartment.title }}
-                </a>
-                 - rooms:{{ apartment.rooms }}
-                 - bathrooms:{{ apartment.bathrooms }}
-                 - beds:{{ apartment.beds }}
-            </li>
-        </ul>
+    ApartmentList
+    <div class="contenitore">
+        <router-link class="routerLink" :to="'/apartments/' + apartment.id" v-for="apartment in store.ApartmentList"
+            :key="apartment.id">
+            <Apartment 
+            :nome="apartment.title" 
+            :id="apartment.id" 
+            :immagine="apartment.main_image">
+            </Apartment>
+        </router-link>
     </div>
 </template>
+
+<style lang="scss" scoped>
+@use '../styles/general.scss' as *;
+
+.contenitore {
+    display: flex;
+    gap: 25px;
+    width: 1200px;
+    flex-wrap: wrap;
+
+    .routerLink {
+        color: red;
+        text-decoration: none;
+    }
+}</style>
