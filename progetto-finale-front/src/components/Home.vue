@@ -1,6 +1,7 @@
 <script setup>
-import { onMounted} from 'vue'
+import { onMounted } from 'vue'
 import { useAuthStore } from "../stores/auth"
+import ApartmentList from './ApartmentList.vue';
 
 const authStore = useAuthStore();
 
@@ -8,7 +9,7 @@ onMounted(async () => {
 
     await authStore.getUser()
 
-    
+
 });
 
 
@@ -23,4 +24,6 @@ onMounted(async () => {
     <div v-else>
         <h1>Go and Login</h1>
     </div>
+
+    <ApartmentList/>
 </template>
