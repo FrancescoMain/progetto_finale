@@ -17,4 +17,8 @@ Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
 
-require __DIR__.'/auth.php';
+Route::get('/denied', function () {
+    return response()->json("you are not logged in. you must login first.");
+})->name('denied');
+
+require __DIR__ . '/auth.php';
