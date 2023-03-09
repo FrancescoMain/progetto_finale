@@ -12,7 +12,7 @@ const authStore = useAuthStore();
             <button>
                 <span>open main enu</span>
             </button>
-            <div>
+            <div id="navmenu">
                 <ul>
 
                     <li>
