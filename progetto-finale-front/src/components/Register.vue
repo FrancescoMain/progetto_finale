@@ -25,6 +25,11 @@ const form = ref({
         </div>
 
         <input type="text" v-model="form.dataOfBirth" placeholder="dataOfBirth">
+        <div v-if ="authStore.errors.name">
+            <span>
+                {{ authStore.errors.dataOfBirth[0] }}
+            </span>
+        </div>
 
         <input type="email" v-model="form.email" placeholder="Email">
         <div v-if ="authStore.errors.email">
