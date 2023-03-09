@@ -121,13 +121,65 @@ class ApartmentController extends Controller
         ]);
     }
 
-    public function edit()
+
+    public function edit(Apartment $apartment)
     {
-        // da fare
+        $apartment->load('services');
+        $services = Service::all();
+
+        return response()->json([
+            "success" => true,
+            "response" => [
+                "data" => [
+                    "apartments" => $apartment,
+                    "services" => $services
+                ],
+            ]
+        ]);
     }
 
-    public function update()
+    //  update apartment
+    public function update(Request $request, Apartment $apartment)
     {
-        // da fare
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|min:0|max:128',
+            'rooms' => 'required|integer|min:0',
+            'beds' => 'required|integer|min:0',
+            'bathrooms' => 'required|integer|min:0',
+            'square_meters' => 'required|integer|min:0',
+            'address' => 'required|string|min:0|max:128',
+            'latitude' => 'required|string|min:0|max:16',
+            'longitude' => 'required|string|min:0|max:16',
+            'main_image' => 'required|string|min:0|max:128',
+            'visible' => 'required|boolean',
+            'price' => 'required|integer|min:0',
+            'description' => 'string',
+            'services_id' => 'nullable|array',
+            'user_id' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
+        }
+
+        $data = $request->all();
+
+        $user = User::find($data['user_id']);
+        $apartment->update($data);
+        $apartment->user()->associate($user);
+        $apartment->save();
+
+        if (array_key_exists('services_id', $data)) {
+
+            $services = Service::find($data['services_id']);
+            $apartment->tags()->sync($services);
+        }
+
+        return response()->json([
+            'success' => true,
+            'response' => $apartment,
+            'data' => $request->all()
+        ]);
     }
 }
