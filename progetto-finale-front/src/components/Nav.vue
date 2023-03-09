@@ -18,6 +18,10 @@ const authStore = useAuthStore();
                     <li>
                         <router-link :to="{name : 'Home'}">Home</router-link>
                     </li>
+                    <li>
+                        <router-link :to="{name : 'AdvancedSearch'}">Advanced Search</router-link>
+                    </li>
+
                    
 
                     <template v-if="!authStore.user">
@@ -30,6 +34,13 @@ const authStore = useAuthStore();
                     </template>
 
                     <template v-else>
+                        
+                        <li>
+                        <router-link :to="{name : 'Dashboard'}">Dashboard</router-link>
+                        </li>
+                        <li>
+                        <router-link :to="{name : 'MyApartment'}">My Apartment</router-link>
+                        </li>
                         <button @click="authStore.handleLogout"> Logout</button>
                     </template>
                 </ul>
