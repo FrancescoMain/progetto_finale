@@ -21,7 +21,8 @@ export default {
             image: '',
             idApartment: '',
 
-            addData: false
+            addData: false,
+            updateShow: false
         }
     },
     methods: {
@@ -77,17 +78,22 @@ export default {
                 .catch(function (error) {
                     currentObj.output = error;
                 });
-            this.imageData(this.id);
             this.titleImage = '';
             this.descriptionImage = '';
             this.image = '';
             this.idApartment = '';
+            this.imageData(this.id);
+            this.updateShow = false;
+            this.addData = false;
         },
         updateImage(image) {
-            this.titleImage = image.title
-            this.descriptionImage = image.description
-            this.image = image.image
-            this.idApartment = image.id
+            this.titleImage = image.title;
+            this.descriptionImage = image.description;
+            this.image = image.image;
+            this.idApartment = image.id;
+
+            this.updateShow = true;
+            this.addData = false;
         },
         updateData(e) {
             e.preventDefault();
@@ -114,11 +120,14 @@ export default {
                 .catch(function (error) {
                     currentObj.output = error;
                 });
-            this.imageData(this.id);
             this.titleImage = '';
             this.descriptionImage = '';
             this.image = '';
             this.idApartment = '';
+
+            this.imageData(this.id);
+            this.updateShow = false;
+            this.addData = false;
         }
 
 
@@ -160,7 +169,9 @@ export default {
                 
             </div>
         </div>
-        <form method="post" enctype="multipart/form-data" >
+
+        <!-- UPDATE IMAGE -->
+        <form method="post" enctype="multipart/form-data" v-if="updateShow">
 
             <!-- input title -->
             <label for="title">Image title</label>
@@ -177,10 +188,12 @@ export default {
             <input type="file"  name="image" v-on:change="onChange">
             <br>
 
-            <input type="submit" value="ADD NEW IMAGE" @click="updateData">
+            <input type="submit" value="UPDATE IMAGE" @click="updateData">
+            <button @click="updateShow = false">CLOSE</button>
         </form>
 
-        <button @click="addData = !addData">ADD IMAGE</button>
+        <!-- CREATE NEW IMAGE -->
+        <button @click="addData = !addData; updateShow = false">ADD IMAGE</button>
         <form method="post" enctype="multipart/form-data" v-if="addData">
 
             <!-- input title -->
