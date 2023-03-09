@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/v1/apartments/image/store', [ImageController::class, 'storeImage'])->name('image.store');
+Route::post('/v1/apartments/image/update/{image}', [ImageController::class, 'updateImage'])->name('image.update');
 
 
 

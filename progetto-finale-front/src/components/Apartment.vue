@@ -19,7 +19,9 @@ export default {
             titleImage: '',
             descriptionImage: '',
             image: '',
-            idApartment: ''
+            idApartment: '',
+
+            addData: false
         }
     },
     methods: {
@@ -75,6 +77,48 @@ export default {
                 .catch(function (error) {
                     currentObj.output = error;
                 });
+            this.imageData(this.id);
+            this.titleImage = '';
+            this.descriptionImage = '';
+            this.image = '';
+            this.idApartment = '';
+        },
+        updateImage(image) {
+            this.titleImage = image.title
+            this.descriptionImage = image.description
+            this.image = image.image
+            this.idApartment = image.id
+        },
+        updateData(e) {
+            e.preventDefault();
+            let currentObj = this;
+
+            // change config content
+            const config = {
+                headers: { 'content-type': 'multipart/form-data' }
+            }
+
+            // import file
+            let formData = new FormData();
+            formData.append('title', this.titleImage);
+            formData.append('description', this.descriptionImage);
+            formData.append('image', this.image);
+            formData.append('apartment_id', this.idApartment);
+
+
+            // send to axios
+            axios.post(this.apiImage + 'update/' + this.idApartment, formData, config)
+                .then(function (response) {
+                    currentObj.success = response.data.success;
+                })
+                .catch(function (error) {
+                    currentObj.output = error;
+                });
+            this.imageData(this.id);
+            this.titleImage = '';
+            this.descriptionImage = '';
+            this.image = '';
+            this.idApartment = '';
         }
 
 
@@ -104,15 +148,40 @@ export default {
             <!-- btn SHOW image -->
             <button @click="imageData(id)">Images</button>
             <div v-for="image in images">
-                {{ image.id }} -
+                {{ image.id }} - {{ image.title }} - {{ image.description }}
 
                 <!-- btn DELETE -->
-                <button @click="imgDelete(image.id)">Delete</button>
+                <button @click="imgDelete(image.id)">Delete</button> -
+
+                <!-- btn UPDATE -->
+                <button @click="updateImage(image)">
+                UPDATE
+                </button>
+                
             </div>
         </div>
+        <form method="post" enctype="multipart/form-data" >
 
+            <!-- input title -->
+            <label for="title">Image title</label>
+            <input type="text"  name="title" v-model="titleImage" >
+            <br>
 
-        <form method="post" enctype="multipart/form-data">
+            <!-- input description -->
+            <label for="description">Image description</label>
+            <textarea v-model="descriptionImage" name="description"></textarea>
+            <br>
+
+            <!-- input image -->
+            <label for="image">Image title</label>
+            <input type="file"  name="image" v-on:change="onChange">
+            <br>
+
+            <input type="submit" value="ADD NEW IMAGE" @click="updateData">
+        </form>
+
+        <button @click="addData = !addData">ADD IMAGE</button>
+        <form method="post" enctype="multipart/form-data" v-if="addData">
 
             <!-- input title -->
             <label for="title">Image title</label>
@@ -120,7 +189,7 @@ export default {
 
             <!-- input description -->
             <label for="description">Image description</label>
-            <input type="text" v-model="descriptionImage" name="description">
+            <textarea v-model="descriptionImage" name="description"></textarea>
 
             <!-- input image -->
             <label for="image">Image title</label>

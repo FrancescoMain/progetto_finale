@@ -57,4 +57,32 @@ class ImageController extends Controller
             'response'=>$image,
         ]);
     }
+    public function updateImage(Request $request, Image $image){
+        $data = $request 
+        -> validate([
+            'title' => 'required|string|max:32',
+            'description' => 'required|string',
+            'image' => 'required|image|mimes:jpg,png,gif,jpeg,svg|max:2048',
+            'apartment_id' => 'required',
+        ]);
+
+        // save image in the Storage
+        $image_path= Storage::put('uploads', $data['image']);
+        $image_path = $request->file('image')->store('image', 'public');
+        $data['image']=$image_path;
+        
+        // associate image to Apartment
+        $apartment= Apartment::find($data[ 'apartment_id']);
+        $image -> update($data);
+        $image -> apartment() ->associate($apartment);
+
+        // save element
+        $image  -> save();
+        
+
+        return response() ->json([
+            'success' => true,
+            'response'=>$image,
+        ]);
+    }
 }
