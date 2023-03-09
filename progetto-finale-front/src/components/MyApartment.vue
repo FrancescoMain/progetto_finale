@@ -3,5 +3,5 @@
 </script>
 
 <template>
-    <h1>Dashboard</h1>
+    <h1>MyApartment</h1>
 </template>

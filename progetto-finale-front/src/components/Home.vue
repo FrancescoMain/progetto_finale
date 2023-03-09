@@ -20,6 +20,7 @@ onMounted(async () => {
     <div v-if="authStore.user">
         <h1>{{ authStore.user.name }}</h1>
         <p>{{ authStore.user.email }}</p>
+        <p>asfd{{ authStore.isAuthenticated }}</p>
     </div>
     <div v-else>
         <h1>Go and Login</h1>
