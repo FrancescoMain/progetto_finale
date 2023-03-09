@@ -30,7 +30,8 @@ class ImageController extends Controller
 
     // STORE
     public function storeImage(Request $request){
-        $data = $request -> validate([
+        $data = $request 
+        -> validate([
             'title' => 'required|string|max:32',
             'description' => 'required|string',
             'image' => 'required|image|mimes:jpg,png,gif,jpeg,svg|max:2048',

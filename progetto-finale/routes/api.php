@@ -32,9 +32,9 @@ Route::middleware('auth')->group(function () {
 
     ///////////IMAGE CONTROLLER////////////////
     Route::delete('/v1/apartments/image/{image}', [ImageController::class, 'deleteImage'])->name('image.delete');
-    Route::post('/v1/apartments/image/store', [ImageController::class, 'storeImage'])->name('image.store');
 });
 
+Route::post('/v1/apartments/image/store', [ImageController::class, 'storeImage'])->name('image.store');
 
 
 

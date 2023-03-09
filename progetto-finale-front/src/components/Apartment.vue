@@ -13,7 +13,7 @@ export default {
     data() {
         return {
             store,
-            apiImage: 'http://127.0.0.1:8000/api/v1/apartments/image/',
+            apiImage: 'http://localhost:8000/api/v1/apartments/image/',
             images: [],
 
             titleImage: '',
@@ -65,6 +65,7 @@ export default {
             formData.append('description', this.descriptionImage);
             formData.append('image', this.image);
             formData.append('apartment_id', this.id);
+
 
             // send to axios
             axios.post(this.apiImage + 'store', formData, config)
@@ -123,7 +124,7 @@ export default {
 
             <!-- input image -->
             <label for="image">Image title</label>
-            <input type="file" v-on="image" name="image" v-on:change="onChange">
+            <input type="file"  name="image" v-on:change="onChange">
 
             <input type="submit" value="ADD NEW IMAGE" @click="storeData">
         </form>
