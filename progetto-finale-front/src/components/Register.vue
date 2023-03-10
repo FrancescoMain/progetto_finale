@@ -24,7 +24,7 @@ const form = ref({
             </span>
         </div>
 
-        <input type="text" v-model="form.dataOfBirth" placeholder="dataOfBirth">
+        <input type="date" v-model="form.dataOfBirth" placeholder="dataOfBirth">
         <div v-if ="authStore.errors.name">
             <span>
                 {{ authStore.errors.dataOfBirth[0] }}
